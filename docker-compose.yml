@@ -10,12 +10,12 @@ services:
     volumes:
       - ${MONGODB_PATH:-./mongodb}:/data/db
   
-  # tok_tg_bot:
-  #   container_name: tok_tg_bot
-  #   command: go run .
-  #   restart: always
-  #   build:
-  #     context: "."
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - mongodb
+  tok_tg_bot:
+    container_name: tok_tg_bot
+    command: go run .
+    restart: always
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb

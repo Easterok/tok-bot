@@ -27,7 +27,7 @@ func Dbconnect() DbClient {
 
 	mongoPort := os.Getenv("MONGODB_PORT")
 
-	mongoUri := fmt.Sprintf("mongodb://localhost:%s", mongoPort)
+	mongoUri := fmt.Sprintf("mongodb://mongodb:%s", mongoPort)
 
 	clientOptions := options.Client().ApplyURI(mongoUri)
 
