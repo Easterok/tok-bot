@@ -1,4 +1,4 @@
-module telegram-onboarding-kit-bot
+module tok
 
 go 1.21.3
 

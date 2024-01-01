@@ -1,12 +1,12 @@
-package main
+package bot
 
 import (
 	"fmt"
 	"log"
 	"os"
-	"telegram-onboarding-kit-bot/db"
-	"telegram-onboarding-kit-bot/utils"
 	"time"
+	"tok/db"
+	"tok/utils"
 
 	"github.com/PaulSonOfLars/gotgbot/v2"
 	"github.com/PaulSonOfLars/gotgbot/v2/ext"
