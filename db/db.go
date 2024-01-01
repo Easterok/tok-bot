@@ -74,14 +74,12 @@ func (db *DbClient) CheckIfUserExist(userId int64) bool {
 	return true
 }
 
-func (db *DbClient) AddNewUser(userId, chatId int64, username string, firstName string, lastName string) {
+func (db *DbClient) AddNewUser(userId, chatId int64, username string, firstName string, lastName string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 
 	defer cancel()
 
 	_, err := db.users.InsertOne(ctx, bson.D{{"_id", userId}, {"chatId", chatId}, {"username", username}, {"firstName", firstName}, {"lastName", lastName}})
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	return err
 }

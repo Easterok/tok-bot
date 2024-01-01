@@ -88,7 +88,11 @@ func Run() {
 
 func registerUserIfNotExist(b *gotgbot.Bot, ctx *ext.Context, user *gotgbot.User) {
 	if !client.CheckIfUserExist(user.Id) {
-		client.AddNewUser(user.Id, ctx.EffectiveChat.Id, user.Username, user.FirstName, user.LastName)
+		err := client.AddNewUser(user.Id, ctx.EffectiveChat.Id, user.Username, user.FirstName, user.LastName)
+
+		if err != nil {
+			log.Fatalf("Registration went wrong %s", err.Error())
+		}
 	}
 }
 
