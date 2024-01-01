@@ -1,4 +1,4 @@
-FROM golang:latest as api_base_build
+FROM golang:latest
 
 ENV GO111MODULE=on
 
@@ -10,14 +10,8 @@ COPY go.sum /app
 RUN go mod download
 
 COPY . .
-RUN go build -v -o api cmd/api/main.go
-
-FROM alpine:3.15.0
-
-WORKDIR /app
-
-COPY --from=api_base_build /app/api .
+RUN go build -o /app/bin/api cmd/api/main.go
 
 EXPOSE 8001
 
-ENTRYPOINT ["/app/main"]
+ENTRYPOINT ["/app/bin/api"]

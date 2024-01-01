@@ -1,22 +1,24 @@
 version: "3"
 
 services:
-  # mongodb:
-  #   container_name: tok_tg_mongodb
-  #   image: 'mongo:latest'
-  #   ports:
-  #     - 127.0.0.1:${MONGODB_PORT:-27017}:${MONGODB_PORT:-27017}
-  #   volumes:
-  #     - ${MONGODB_PATH:-./mongodb}:/data/db
+  mongodb:
+    container_name: tok_tg_mongodb
+    image: 'mongo:latest'
+    ports:
+      - 127.0.0.1:${MONGODB_PORT:-27017}:${MONGODB_PORT:-27017}
+    volumes:
+      - ${MONGODB_PATH:-./mongodb}:/data/db
     
   tok_api:
     container_name: tok_api
     restart: always
+    ports:
+      - 127.0.0.1:${API_PORT:-8001}:${API_PORT:-8001}
     build:
       context: .
       dockerfile: cmd/api/Dockerfile
-    # depends_on:
-    #   - mongodb
+    depends_on:
+      - mongodb
   
   tok_tg_bot:
     container_name: tok_tg_bot
@@ -24,5 +26,5 @@ services:
     build:
       context: .
       dockerfile: cmd/bot/Dockerfile
-    # depends_on:
-    #   - mongodb
+    depends_on:
+      - mongodb
