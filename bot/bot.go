@@ -16,7 +16,7 @@ import (
 
 var client = db.Dbconnect()
 
-func main() {
+func Run() {
 	err := godotenv.Load()
 
 	if err != nil {

@@ -2,6 +2,6 @@ package api
 
 import "fmt"
 
-func runApi() {
+func Run() {
 	fmt.Println("todo: run api")
 }
