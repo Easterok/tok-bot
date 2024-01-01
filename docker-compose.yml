@@ -8,6 +8,8 @@ services:
       - 127.0.0.1:${MONGODB_PORT:-27017}:${MONGODB_PORT:-27017}
     volumes:
       - ${MONGODB_PATH:-./mongodb}:/data/db
+    networks:
+      - app_network
     
   tok_api:
     container_name: tok_api
@@ -19,7 +21,22 @@ services:
       dockerfile: cmd/api/Dockerfile
     depends_on:
       - mongodb
+    networks:
+      - app_network
   
+  nginx:
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    depends_on:
+      - tok_api
+    networks:
+      - app_network
+
   tok_tg_bot:
     container_name: tok_tg_bot
     restart: always
@@ -28,3 +45,9 @@ services:
       dockerfile: cmd/bot/Dockerfile
     depends_on:
       - mongodb
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
